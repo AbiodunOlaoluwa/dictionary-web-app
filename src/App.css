@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Inter:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.google.com/specimen/Inter");
+}
+@font-face {
+  font-family: "Lora";
+  src: url("https://fonts.google.com/specimen/Lora");
+}
+@font-face {
+  font-family: "Inconsolata";
+  src: url("https://fonts.google.com/specimen/Inconsolata");
+}
+
+:root {
+  --bg-primary-light: #ffffff;
+  --bg-primary-dark: #050505;
+  --bg-secondary: #979797;
+
+  --text-primary-light: #2d2d2d;
+  --text-primary-dark: #ffffff;
+
+  --text-secondary-light: #757575;
+  --text-secondary-dark: #757575;
+
+  --purple: #a445ed;
+  --red: #ff5252;
+
+  --text-Inter: "Inter";
+  --text-Lora: "Lora";
+  --text-Mono: "Inconsolata";
+}
+
+.light {
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --bg-primary: var(--bg-primary-light);
+}
+
+.dark {
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --bg-primary: var(--bg-primary-dark);
+}
+
+.sansSerif {
+  --font-primary: var(--text-Inter);
+  font-family: var(--text-Inter);
+}
+
+.serif {
+  --font-primary: var(--text-Lora);
+  font-family: var(--text-Lora);
+}
+
+.mono {
+  --font-primary: var(--text-Mono);
+  font-family: var(--text-Mono);
+  /* font-size: 1.5rem; */
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 0 auto;
+}
+
+/* Styles for desktop devices */
+@media only screen and (min-width: 1024px) {
+  .mainDictionaryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh;
+    width: 50vw;
+    max-width: 800px;
+    padding: 2rem 0;
+    margin: 0 auto;
+  }
+
+  .navBarContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .bookIconContainer {
+    width: 32px;
+    height: 36px;
+  }
+
+  .togglesContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+  }
+
+  .fontSelectContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    gap: 1%;
+  }
+
+  .fontSelectDropDown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+  }
+
+  .fontSelect:hover {
+    cursor: pointer;
+  }
+
+  .fontSelect {
+    appearance: none;
+    margin-right: 0.4rem;
+    outline: none;
+    border: none;
+    width: fit-content;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-weight: bold;
+    font-family: var(--font-primary);
+    font-size: 16px;
+  }
+
+  .fontSelectDropDown::after {
+    content: url("./images/icon-arrow-down.svg");
+  }
+
+  .arrowDownImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .separationContainer {
+    height: 100%;
+    width: 1px;
+    background-color: #979797;
+    margin: 0 1rem;
+    opacity: 0.45;
+  }
+
+  .themeButtonContainer {
+    display: flex;
+    height: 1.8rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+    background-color: rgba(151, 151, 151, 0.25);
+    border-radius: 1rem;
+    padding: 1rem;
+    width: fit-content;
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+    font-weight: bold;
+  }
+
+  .themeButtonContainer:hover {
+    cursor: pointer;
+    background-color: rgba(151, 151, 151, 0.5);
+  }
+
+  .purpleBG {
+    background-color: rgba(164, 69, 237, 0.25);
+  }
+
+  .purpleBG:hover {
+    background-color: rgba(164, 69, 237, 0.5);
+  }
+}
+
+/* Styles for tablet devices */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  /* Add your tablet styles here */
+}
+
+/* Styles for mobile devices */
+@media only screen and (max-width: 767px) {
+  /* Add your mobile styles here */
+}
