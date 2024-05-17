@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import pageIcon from "./images/iconoir_book.svg";
 import "./App.css";
+import newWindowIcon from "./images/icon-new-window.svg";
 import axios from 'axios';
 
 const App = () => {
@@ -81,6 +82,19 @@ const App = () => {
     setPlayButtonHover(false);
   }
 
+  const handleAudioClick = () => {
+    let word = "";
+    if (searchWord) {
+      word = searchWord;
+    }
+    else {
+      word = "hello";
+    }
+    const audioUrl = `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${word}--_gb_1.mp3`;
+    const audioEl = new Audio(audioUrl);
+    audioEl.play();
+  }
+
   return (
     <div className={`App ${theme} ${font}`} onClick={() => setError(false)}>
       <div className="mainDictionaryContainer">
@@ -120,13 +134,13 @@ const App = () => {
           <div className="resultHeader">
             <div className="headerText">
               <div className="searchWordHeading">
-                <p className="searchWordHeadingText">Keyboard</p>
+                <p className="searchWordHeadingText">Hello</p>
               </div>
               <div className="phoneticSpelling">
-                <span className="purpleText"><p className="phoneticSpellingText">/ˈkiːbɔːd/</p></span>
+                <span className="purpleText"><p className="phoneticSpellingText">/həˈləʊ/</p></span>
               </div>
             </div>
-            <div className="audioButtonContainer" onMouseOver={handlePlayButtonMouseOver} onMouseLeave={handlePlayButtonMouseLeave}>
+            <div className="audioButtonContainer" onMouseOver={handlePlayButtonMouseOver} onMouseLeave={handlePlayButtonMouseLeave} onClick={handleAudioClick}>
               <svg className="audioPlayButton" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#A445ED" fill-rule="evenodd"><circle cx="37.5" cy="37.5" r="37.5" opacity={playButtonHover ? "1" : ".25"} /><path d="M29 27v21l21-10.5z" fill={playButtonHover ? "#FFFFFF" : "#A445ED"} /></g></svg>
             </div>
           </div>
@@ -143,9 +157,10 @@ const App = () => {
                 <div className="partOfSpeechMeaningListContainer">
                   <div className="partOfSpeechMeaningListItems">
                     <ul>
-                      <li>[etc.] A set of keys used to operate a typewriter, computer, etc</li>
+                      <li>Hello! or an equivalent greeting</li>
+                      {/* <li>[etc.] A set of keys used to operate a typewriter, computer, etc</li>
                       <li>A component of many instruments including the piano, organ, and harpsichord consisting of usually black and white keys that cause different tones to be produced when struck.</li>
-                      <li>A device with keys of a musical keyboard, used to control electronic sound-producing devices which may be built into or separate from the keyboard device.</li>
+                      <li>A device with keys of a musical keyboard, used to control electronic sound-producing devices which may be built into or separate from the keyboard device.</li> */}
                     </ul>
                   </div>
                 </div>
@@ -153,18 +168,19 @@ const App = () => {
               <div className="synonymsContainer">
                 <p className="synonym"><span className="partOfSpeechMeaningTitle">Synonyms</span></p>
                 <div className="synonymList">
-                  <span className="purpleText"><p className="synonymText">electronic keyboard</p></span>
+                  <span className="purpleText"><p className="synonymText">greeting</p></span>
+                  {/* <span className="purpleText"><p className="synonymText">electronic keyboard</p></span>
                   <span className="purpleText"><p className="synonymText">clavier</p></span>
                   <span className="purpleText"><p className="synonymText">row of keys</p></span>
-                  <span className="purpleText"><p className="synonymText">console</p></span>
+                  <span className="purpleText"><p className="synonymText">console</p></span> */}
                 </div>
               </div>
               <div className="synonymsContainer">
                 <p className="synonym"><span className="partOfSpeechMeaningTitle">Antonyms</span></p>
                 <div className="synonymList">
-                  <span className="purpleText"><p className="synonymText">club</p></span>
-                  <span className="purpleText"><p className="synonymText">cudgel</p></span>
-                  <span className="purpleText"><p className="synonymText">interface</p></span>
+                  <span className="purpleText"><p className="synonymText">bye</p></span>
+                  <span className="purpleText"><p className="synonymText">goodbye</p></span>
+                  {/* <span className="purpleText"><p className="synonymText">interface</p></span> */}
                 </div>
               </div>
             </div>
@@ -180,10 +196,61 @@ const App = () => {
                 <div className="partOfSpeechMeaningListContainer">
                   <div className="partOfSpeechMeaningListItems">
                     <ul>
-                      <li>To type on a computer keyboard</li>
+                      <li>To greet with "hello".</li>
                     </ul>
                   </div>
-                  <div className="partOfSpeechMeaningTitle"><p className="exampleText">"Keyboarding is the part of this job I hate the most."</p></div>
+                  {/* <div className="partOfSpeechMeaningTitle"><p className="exampleText">"Keyboarding is the part of this job I hate the most."</p></div> */}
+                </div>
+              </div>
+            </div>
+            <div className="partOfSpeechContainer">
+              <div className="partOfSpeechHeaderContainer">
+                <div className="partOfSpeechTitle">
+                  <i><p className="partOfSpeechTitleText">interjection</p></i>
+                </div>
+                <div className="partOfSpeechInnerRectangle"></div>
+              </div>
+              <div className="partOfSpeechMeaningContainer">
+                <p className="partOfSpeechMeaningTitle">Meaning</p>
+                <div className="partOfSpeechMeaningListContainer">
+                  <div className="partOfSpeechMeaningListItems">
+                    <ul>
+                      <li>A greeting (salutation) said when meeting someone or acknowledging someone's arrival or presence</li>
+                    </ul>
+                  </div>
+                  <div className="partOfSpeechMeaningTitle"><p className="exampleText">"Hello, everyone."</p></div>
+                </div>
+                <div className="partOfSpeechMeaningListContainer">
+                  <div className="partOfSpeechMeaningListItems">
+                    <ul>
+                      <li>A greeting used when answering the telephone.</li>
+                    </ul>
+                  </div>
+                  <div className="partOfSpeechMeaningTitle"><p className="exampleText">"Hello? How may I help you?"</p></div>
+                </div>
+                <div className="partOfSpeechMeaningListContainer">
+                  <div className="partOfSpeechMeaningListItems">
+                    <ul>
+                      <li>A call for response if it is not clear if anyone is present or listening, or if a telephone conversation may have been disconnected.</li>
+                    </ul>
+                  </div>
+                  <div className="partOfSpeechMeaningTitle"><p className="exampleText">"Hello? Is anyone there?"</p></div>
+                </div>
+                <div className="partOfSpeechMeaningListContainer">
+                  <div className="partOfSpeechMeaningListItems">
+                    <ul>
+                      <li>Used sarcastically to imply that the person addressed or referred to has done something the speaker or writer considers to be foolish.</li>
+                    </ul>
+                  </div>
+                  <div className="partOfSpeechMeaningTitle"><p className="exampleText">"You just tried to start your car with your cell phone. Hello?"</p></div>
+                </div>
+                <div className="partOfSpeechMeaningListContainer">
+                  <div className="partOfSpeechMeaningListItems">
+                    <ul>
+                      <li>An expression of puzzlement or discovery.</li>
+                    </ul>
+                  </div>
+                  <div className="partOfSpeechMeaningTitle"><p className="exampleText">"Hello! What’s going on here?"</p></div>
                 </div>
               </div>
             </div>
@@ -193,9 +260,12 @@ const App = () => {
           <div className="sourceInnerRectangle"></div>
           <div className="source">
             <div className="sourceTitle">
-              <p className="sourceTitleText">Source</p>
+              <p className="sourceTitleText"><u>Source</u></p>
             </div>
-            <a href={`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`} target='_blank' className="sourceLink">{`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`}</a>
+            <div className="sourceLinkContainer">
+              <a href={searchWord ? `https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}` : `https://api.dictionaryapi.dev/api/v2/entries/en/hello`} target='_blank' rel="noreferrer" className="sourceLink">{searchWord ? `https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}` : `https://api.dictionaryapi.dev/api/v2/entries/en/hello`}</a>
+              <img src={newWindowIcon} alt="newWindowIcon" className="newWindowIcon" />
+            </div>
           </div>
         </div>
       </div>
