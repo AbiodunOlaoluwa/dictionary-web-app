@@ -7,12 +7,14 @@ import axios from 'axios';
 
 const App = () => {
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const [font, setFont] = useState("sansSerif");
   const [error, setError] = useState(false);
   const [searchWord, setSearchWord] = useState("");
   const [meaningData, setMeaningData] = useState([]);
   const [playButtonHover, setPlayButtonHover] = useState(false);
+  const [playButtonWorking, setPlayButtonWorking] = useState(true);
+  const [resError, setResError] = useState(false);
 
   useEffect(() => {
     const searchInput = document.querySelector(".searchInput");
@@ -49,23 +51,31 @@ const App = () => {
   }
 
   const handleWordSearch = async () => {
+
+    setPlayButtonWorking(true);
+
     if (searchWord === "") {
       setError(true);
+      return;
     }
-
     else {
       try {
         const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`);
         setMeaningData(response.data);
       } catch (error) {
         console.log(error);
+        setError(true);
+        setResError(true);
       }
     }
   }
 
   const handleInputChange = (event) => {
     setError(false);
-    setSearchWord(event.target.value)
+    setResError(false);
+    const word = event.target.value;
+    const wordSetting = word.toLowerCase();
+    setSearchWord(wordSetting);
   }
 
   const handleKeyDown = (event) => {
@@ -82,7 +92,7 @@ const App = () => {
     setPlayButtonHover(false);
   }
 
-  const handleAudioClick = () => {
+  const handleAudioClick = async () => {
     let word = "";
     if (searchWord) {
       word = searchWord;
@@ -90,9 +100,20 @@ const App = () => {
     else {
       word = "hello";
     }
+
     const audioUrl = `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${word}--_gb_1.mp3`;
     const audioEl = new Audio(audioUrl);
-    audioEl.play();
+
+    audioEl.addEventListener('error', (error) => {
+      console.log("Error playing audio file:", error)
+      setPlayButtonWorking(false);
+    })
+    try {
+      await audioEl.play();
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return (
@@ -125,10 +146,10 @@ const App = () => {
         </div>
         <div className="searchBar">
           <div className={`searchBarContainer ${error ? "error" : ""}`}>
-            <input type="text" className={`searchInput ${error ? "errorPlaceholder" : ""}`} placeholder='Search for any word...' value={searchWord} onChange={handleInputChange} onKeyDown={handleKeyDown} onClick={handleSearchInputClick} />
+            <input type="text" className={`searchInput ${error ? "errorPlaceholder" : ""}`} placeholder='Search for any word...' value={searchWord.charAt(0).toUpperCase() + searchWord.slice(1)} onChange={handleInputChange} onKeyDown={handleKeyDown} onClick={handleSearchInputClick} />
             <svg className="searchIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path fill="none" stroke={error ? "#FF5252" : "#A445ED"} stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12.663 12.663 3.887 3.887M1 7.664a6.665 6.665 0 1 0 13.33 0 6.665 6.665 0 0 0-13.33 0Z" /></svg>
           </div>
-          <p className={`errorMessage ${error ? "" : "noDisplay"} ${error ? "errorFont" : ""}`}>Whoops, can't be empty...</p>
+          <p className={`errorMessage ${error ? "" : "noDisplay"} ${error ? "errorFont" : ""}`}>{resError ? "There seems to be a problem..." : "Whoops, can't be empty..."}</p>
         </div>
         <div className="resultBodyContainer">
           <div className="resultHeader">
@@ -140,9 +161,16 @@ const App = () => {
                 <span className="purpleText"><p className="phoneticSpellingText">/həˈləʊ/</p></span>
               </div>
             </div>
-            <div className="audioButtonContainer" onMouseOver={handlePlayButtonMouseOver} onMouseLeave={handlePlayButtonMouseLeave} onClick={handleAudioClick}>
-              <svg className="audioPlayButton" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#A445ED" fill-rule="evenodd"><circle cx="37.5" cy="37.5" r="37.5" opacity={playButtonHover ? "1" : ".25"} /><path d="M29 27v21l21-10.5z" fill={playButtonHover ? "#FFFFFF" : "#A445ED"} /></g></svg>
-            </div>
+            {
+              playButtonWorking ?
+                <div className={`audioButtonContainer ${playButtonWorking ? "" : "noDisplay"}`} onMouseOver={handlePlayButtonMouseOver} onMouseLeave={handlePlayButtonMouseLeave} onClick={handleAudioClick}>
+                  <svg className="audioPlayButton" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#A445ED" fill-rule="evenodd"><circle cx="37.5" cy="37.5" r="37.5" opacity={playButtonHover ? "1" : ".25"} /><path d="M29 27v21l21-10.5z" fill={playButtonHover ? "#FFFFFF" : "#A445ED"} /></g></svg>
+                </div>
+                :
+                <div className="audioButtonContainer error errorFont noPlay">
+                  <svg className="audioPlayButton" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#ff5252" fill-rule="evenodd"><circle cx="37.5" cy="37.5" r="37.5" opacity=".25" /><path d="M29 27v21l21-10.5z" /></g></svg>
+                </div>
+            }
           </div>
           <div className="resultBody">
             <div className="partOfSpeechContainer">

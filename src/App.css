@@ -454,6 +454,15 @@ a {
   outline: none;
 }
 
+.noDisplay {
+  display: none;
+}
+
+.noPlay {
+  border-radius: 50%;
+  border-width: 5px;
+}
+
 /* Styles for desktop devices */
 @media only screen and (min-width: 1024px) {
   .mainDictionaryContainer {
