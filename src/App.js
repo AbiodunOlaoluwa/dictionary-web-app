@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const App = () => {
 
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [font, setFont] = useState("sansSerif");
   const [error, setError] = useState(false);
   const [searchWord, setSearchWord] = useState("");
@@ -159,7 +159,7 @@ const App = () => {
                     <p className="searchWordHeadingText">{meaningData[0].word.charAt(0).toUpperCase() + meaningData[0].word.slice(1)}</p>
                   </div>
                   <div className="phoneticSpelling">
-                    <span className="purpleText"><p className="phoneticSpellingText">{meaningData[0].phonetics[0].text}</p></span>
+                    <span className="purpleText"><p className="phoneticSpellingText">{meaningData[0].phonetics[0]?.text || "- Not Available -"}</p></span>
                   </div>
                 </div>
                 {
