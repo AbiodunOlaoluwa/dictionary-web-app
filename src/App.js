@@ -146,7 +146,9 @@ const App = () => {
         <div className="searchBar">
           <div className={`searchBarContainer ${error ? "error" : ""}`}>
             <input type="text" className={`searchInput ${error ? "errorPlaceholder" : ""}`} placeholder='Search for any word...' value={searchWord.charAt(0).toUpperCase() + searchWord.slice(1)} onChange={handleInputChange} onKeyDown={handleKeyDown} onClick={handleSearchInputClick} />
-            <svg className="searchIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path fill="none" stroke={error ? "#FF5252" : "#A445ED"} stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12.663 12.663 3.887 3.887M1 7.664a6.665 6.665 0 1 0 13.33 0 6.665 6.665 0 0 0-13.33 0Z" /></svg>
+            <div className="searchIconContainer" onClick={handleWordSearch}>
+              <svg className="searchIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path fill="none" stroke={error ? "#FF5252" : "#A445ED"} stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12.663 12.663 3.887 3.887M1 7.664a6.665 6.665 0 1 0 13.33 0 6.665 6.665 0 0 0-13.33 0Z" /></svg>
+            </div>
           </div>
           <p className={`errorMessage ${error ? "" : "noDisplay"} ${error ? "errorFont" : ""}`}>{resError ? "There seems to be a problem..." : "Whoops, can't be empty..."}</p>
         </div>
@@ -177,59 +179,59 @@ const App = () => {
                 meaningData.map((meaningObject, index) => {
                   return (
                     <div key={index} className="resultBody">
-                {
-                  meaningObject.meanings.map((meaning, index) => {
-                    return (
-                      <div key={index} className="partOfSpeechContainer">
-                        <div className="partOfSpeechHeaderContainer">
-                          <div className="partOfSpeechTitle">
-                            <i><p className="partOfSpeechTitleText">{meaning.partOfSpeech}</p></i>
-                          </div>
-                          <div className="partOfSpeechInnerRectangle"></div>
-                        </div>
-                        {meaning.definitions.map((definition, index) => {
+                      {
+                        meaningObject.meanings.map((meaning, index) => {
                           return (
-                            <div key={index} className="partOfSpeechMeaningListContainer">
-                              <div className="partOfSpeechMeaningListItems">
-                                <ul>
-                                  <li>{definition.definition}</li>
-                                </ul>
+                            <div key={index} className="partOfSpeechContainer">
+                              <div className="partOfSpeechHeaderContainer">
+                                <div className="partOfSpeechTitle">
+                                  <i><p className="partOfSpeechTitleText">{meaning.partOfSpeech}</p></i>
+                                </div>
+                                <div className="partOfSpeechInnerRectangle"></div>
                               </div>
-                              <div className="partOfSpeechMeaningTitle"><p className="exampleText">"{definition.example}"</p></div>
-                            </div>
-                          )
-                        })}
-                        <div className="synonymsContainer">
-                          <p className="synonym"><span className="partOfSpeechMeaningTitle">Synonyms</span></p>
-                          <div className="synonymList">
-                            {meaning.synonyms.map((synonym, index) => {
-                              return (
-                                <span key={index} className="purpleText"><p className="synonymText">{synonym}</p></span>
-                              )
-                            })}
-                            {/* <span className="purpleText"><p className="synonymText">electronic keyboard</p></span>
+                              {meaning.definitions.map((definition, index) => {
+                                return (
+                                  <div key={index} className="partOfSpeechMeaningListContainer">
+                                    <div className="partOfSpeechMeaningListItems">
+                                      <ul>
+                                        <li>{definition.definition}</li>
+                                      </ul>
+                                    </div>
+                                    <div className="partOfSpeechMeaningTitle"><p className="exampleText">"{definition.example}"</p></div>
+                                  </div>
+                                )
+                              })}
+                              <div className="synonymsContainer">
+                                <p className="synonym"><span className="partOfSpeechMeaningTitle">Synonyms</span></p>
+                                <div className="synonymList">
+                                  {meaning.synonyms.map((synonym, index) => {
+                                    return (
+                                      <span key={index} className="purpleText"><p className="synonymText">{synonym}</p></span>
+                                    )
+                                  })}
+                                  {/* <span className="purpleText"><p className="synonymText">electronic keyboard</p></span>
                       <span className="purpleText"><p className="synonymText">clavier</p></span>
                       <span className="purpleText"><p className="synonymText">row of keys</p></span>
                       <span className="purpleText"><p className="synonymText">console</p></span> */}
-                          </div>
-                        </div>
-                        <div className="synonymsContainer">
-                          <p className="synonym"><span className="partOfSpeechMeaningTitle">Antonyms</span></p>
-                          <div className="synonymList">
-                            {
-                              meaning.antonyms.map((antonym, index) => {
-                                return <span key={index} className="purpleText"><p className="synonymText">{antonym}</p></span>
-                              })
-                            }
-                            {/* <span className="purpleText"><p className="synonymText">goodbye</p></span> */}
-                            {/* <span className="purpleText"><p className="synonymText">interface</p></span> */}
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })
-                }
-              </div>
+                                </div>
+                              </div>
+                              <div className="synonymsContainer">
+                                <p className="synonym"><span className="partOfSpeechMeaningTitle">Antonyms</span></p>
+                                <div className="synonymList">
+                                  {
+                                    meaning.antonyms.map((antonym, index) => {
+                                      return <span key={index} className="purpleText"><p className="synonymText">{antonym}</p></span>
+                                    })
+                                  }
+                                  {/* <span className="purpleText"><p className="synonymText">goodbye</p></span> */}
+                                  {/* <span className="purpleText"><p className="synonymText">interface</p></span> */}
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
                   )
                 })
               }

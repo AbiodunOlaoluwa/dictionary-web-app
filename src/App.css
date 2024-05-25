@@ -222,6 +222,18 @@
   border: 1px solid var(--purple);
 }
 
+.searchIconContainer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 1rem 1rem;
+}
+
+.searchIconContainer:hover {
+  cursor: pointer;
+}
+
 .error {
   border: 1px solid var(--red);
 }
